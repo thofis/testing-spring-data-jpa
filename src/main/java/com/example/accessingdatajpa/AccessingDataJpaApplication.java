@@ -7,11 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Set;
 
+import static com.example.accessingdatajpa.AccessingDataJpaApplication.CustomerSearchSpecs.hasFirstNameLike;
+import static com.example.accessingdatajpa.AccessingDataJpaApplication.CustomerSearchSpecs.hasLastNameLike;
 import static org.springframework.data.domain.ExampleMatcher.StringMatcher.STARTING;
 import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 
@@ -82,7 +85,25 @@ public class AccessingDataJpaApplication {
       List<CustomerSearch> resultsByExample = customerSearchRepository.findAll(Example.of(customerSearch, matchingAll().withStringMatcher(STARTING)));
       resultsByExample.forEach(c -> log.info("Results by example: {}", c));
 
+      // query by specification
+      List<CustomerSearch> resultsBySpec = customerSearchRepository.findAll(hasLastNameLike("Bau").and(hasFirstNameLike("J")));
+      resultsBySpec.forEach(c -> log.info("Results by spec: {}", c));
     };
   }
+
+  static class CustomerSearchSpecs {
+    static Specification<CustomerSearch> hasLastNameLike(String lastName) {
+      return (root, query, builder) -> {
+        return builder.like(root.get("lastName"), lastName + "%");
+      };
+    }
+
+    static Specification<CustomerSearch> hasFirstNameLike(String firstName) {
+      return (root, query, builder) -> {
+        return builder.like(root.get("firstName"), firstName + "%");
+      };
+    }
+  }
+
 
 }
