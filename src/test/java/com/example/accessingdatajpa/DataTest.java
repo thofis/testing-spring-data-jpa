@@ -8,7 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @ActiveProfiles("test")
 public class DataTest {
 

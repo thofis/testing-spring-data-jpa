@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: off
 tests:
-  name: world
+  name: World
 
 logging:
   level:
