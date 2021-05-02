@@ -4,7 +4,7 @@ spring:
     username: sa
     password: sa
   jpa:
-    show-sql: true
+    #    show-sql: true
     hibernate:
       ddl-auto: create-drop
     open-in-view: false
@@ -12,8 +12,11 @@ spring:
     console:
       enabled: true
 
-#logging:
-#  level:
-#    org.springframework: debug
+logging:
+  level:
+    #    org.springframework: debug
+    sql: trace
 
+tests:
+  name: fischer
 

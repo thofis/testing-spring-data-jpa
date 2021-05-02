@@ -1,0 +1,11 @@
+spring:
+  main:
+    banner-mode: off
+
+tests:
+  name: world
+
+logging:
+  level:
+    root: warn
+    sql: off
