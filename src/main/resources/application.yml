@@ -18,5 +18,5 @@ logging:
     sql: trace
 
 tests:
-  name: fischer
+  name: property
 
